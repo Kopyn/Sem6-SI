@@ -1,3 +1,6 @@
+from utils.book import Book
+
+
 class DataReader():
     
     def __init__(self, filename) -> None:
@@ -7,16 +10,21 @@ class DataReader():
 
     def read_data(self, filename):
         with open(filename, encoding="utf-8") as file:
-            i = 1
             line = file.readline()
-            print(line)
-            print(i)
+            self.validate_book(line)
             while line:
-                i += 1
                 line = file.readline()
-                print(line)
-                print(i)
+                self.validate_book(line)
             file.close()
+        
 
-    def validate_book(self):
-        pass
+    def validate_book(self, line : str):
+        words = line.split('\t')
+        if len(words) != 7:
+            return False
+        if words[2] != '' and words[5] != '' and words[6] != '':
+            b = Book(words[2], words[5], words[6])
+            self.books.append(b)
+
+    def get_books(self):
+        return self.books

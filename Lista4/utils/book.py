@@ -12,3 +12,12 @@ class Book():
 
     def get_summary(self):
         return self.summary
+
+    def set_book_title(self, book_title):
+        self.book_title = book_title
+
+    def set_genres(self, genres):
+        self.genres = genres
+
+    def set_summary(self, summary):
+        self.summary = summary
