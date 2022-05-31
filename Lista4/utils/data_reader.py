@@ -1,6 +1,7 @@
 from utils.book import Book
 import json
 from genres import valid_genres
+import string
 
 class DataReader():
     
@@ -39,12 +40,16 @@ class DataReader():
                     if counter > 1:
                         return
                 if chosen_genre != "":
-                    b = Book(chosen_genre, words[6])
+                    b = Book(chosen_genre, self.replace_invalid_characters(words[6]))
                     self.books.append(b)
                     if chosen_genre in self.genres_with_occurences.keys():
                         self.genres_with_occurences[chosen_genre] = self.genres_with_occurences[chosen_genre] + 1
                     else:
                         self.genres_with_occurences[chosen_genre] = 1
+
+    def replace_invalid_characters(self, description) -> string:
+        new_description = description.translate(str.maketrans('', '', string.punctuation))
+        return ""
 
     def get_books(self):
         return self.books
